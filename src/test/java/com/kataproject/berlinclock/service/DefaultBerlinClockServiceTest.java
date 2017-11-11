@@ -31,14 +31,14 @@ public class DefaultBerlinClockServiceTest {
 	public void minutesShouldBeSplitIn5MinutesBlocks() throws BerlinClockException {
 		BerlinClock berlinClockResult = defaultBerlinClockService.convertTimeToBerlinClock(FIVE_MINUTES_TIME);
 
-		assertThat(berlinClockResult.getMinutesBlocks()).isEqualTo(1);
+		assertThat(berlinClockResult.getMinuteBlocks()).isEqualTo(1);
 	}
 
 	@Test
 	public void max5MinBlocksShouldBe11() throws BerlinClockException {
 		BerlinClock berlinClockResult = defaultBerlinClockService.convertTimeToBerlinClock(MAX_MINUTES_TIME);
 
-		assertThat(berlinClockResult.getMinutesBlocks()).isEqualTo(11);
+		assertThat(berlinClockResult.getMinuteBlocks()).isEqualTo(11);
 	}
 
 }
