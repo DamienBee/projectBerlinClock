@@ -4,9 +4,7 @@ import com.kataproject.berlinclock.dto.BerlinClock;
 import com.kataproject.berlinclock.exception.BerlinClockException;
 
 /**
- * 
- * Converts times to Berlin Clock
- *
+ * Converts a time to Berlin Clock
  */
 public interface BerlinClockService {
 

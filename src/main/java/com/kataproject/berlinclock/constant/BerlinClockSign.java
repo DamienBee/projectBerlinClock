@@ -1,5 +1,8 @@
 package com.kataproject.berlinclock.constant;
 
+/**
+ * Signs used in the textual equivalent of the Berlin Clock
+ */
 public enum BerlinClockSign {
 
 	ACTIVE_SIGN('Y'),
