@@ -21,32 +21,33 @@ public class DefaultBerlinClockService implements BerlinClockService {
 		BerlinClock berlinClock = new BerlinClock();
 
 		berlinClock.setHourBlocks(convertHoursBlocks(timeToConvert.getHour()));
-		berlinClock.setLastHours(convertLastHours(timeToConvert.getHour()));
+		berlinClock.setRemainingHours(convertRemainingHours(timeToConvert.getHour()));
 		berlinClock.setMinutesBlocks(convertMinuteBlocks(timeToConvert.getMinute()));
-		berlinClock.setLastMinutes(convertLastMinutes(timeToConvert.getMinute()));
+		berlinClock.setRemainingMinutes(convertRemainingMinutes(timeToConvert.getMinute()));
 		berlinClock.setIsSecondActivated(convertSeconds(timeToConvert.getSecond()));
 
 		return berlinClock;
 	}
 
 	private int convertHoursBlocks(int hoursToConvert) {
-		return 0;
+		return hoursToConvert / BerlinClockConfiguration.NUMBER_HOUR_IN_BLOCKS;
 	}
 
-	private int convertLastHours(int hoursToConvert) {
-		return 0;
+	private int convertRemainingHours(int hoursToConvert) {
+		return hoursToConvert % BerlinClockConfiguration.NUMBER_HOUR_IN_BLOCKS;
 	}
 
 	private int convertMinuteBlocks(int minutesToConvert) {
-		return minutesToConvert / BerlinClockConfiguration.NUMBER_MINUTE_BLOCKS;
+		return minutesToConvert / BerlinClockConfiguration.NUMBER_MINUTE_IN_BLOCKS;
 	}
 
-	private int convertLastMinutes(int minutesToConvert) {
-		return 0;
+	private int convertRemainingMinutes(int minutesToConvert) {
+		return minutesToConvert % BerlinClockConfiguration.NUMBER_MINUTE_IN_BLOCKS;
 	}
 
 	private boolean convertSeconds(int secondsToConvert) {
-		return false;
+		// No remainder means that seconds are activated
+		return secondsToConvert % BerlinClockConfiguration.NUMBER_OF_SECONDS_FOR_ACTIVATION == 0;
 	}
 
 	private LocalTime convertTimeFormatToLocalTime(String standardTime) throws BerlinClockException {
@@ -54,7 +55,8 @@ public class DefaultBerlinClockService implements BerlinClockService {
 		LocalTime timeToConvert;
 
 		try {
-			timeToConvert = LocalTime.parse(standardTime, dateTimeFormatter);
+			timeToConvert = LocalTime.parse(standardTime,
+											dateTimeFormatter);
 		} catch (DateTimeParseException e) {
 			throw new BerlinClockException(e);
 		}

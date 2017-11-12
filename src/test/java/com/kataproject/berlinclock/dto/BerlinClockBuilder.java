@@ -3,9 +3,9 @@ package com.kataproject.berlinclock.dto;
 public class BerlinClockBuilder {
 
 	private int hourBlocks;
-	private int lastHours;
+	private int remainingHours;
 	private int minutesBlocks;
-	private int lastMinutes;
+	private int remainingMinutes;
 	private boolean isSecondActivated;
 
 	public static BerlinClockBuilder aBerlinClock() {
@@ -17,8 +17,8 @@ public class BerlinClockBuilder {
 		return this;
 	}
 
-	public BerlinClockBuilder withLastHours(int lastHours) {
-		this.lastHours = lastHours;
+	public BerlinClockBuilder withRemainingHours(int remainingHours) {
+		this.remainingHours = remainingHours;
 		return this;
 	}
 
@@ -27,12 +27,12 @@ public class BerlinClockBuilder {
 		return this;
 	}
 
-	public BerlinClockBuilder withLastMinutes(int lastMinutes) {
-		this.lastMinutes = lastMinutes;
+	public BerlinClockBuilder withRemainingMinutes(int remainingMinutes) {
+		this.remainingMinutes = remainingMinutes;
 		return this;
 	}
 
-	public BerlinClockBuilder hasSecondActivated(boolean secondActivated) {
+	public BerlinClockBuilder hasSecondActive(boolean secondActivated) {
 		this.isSecondActivated = secondActivated;
 		return this;
 	}
@@ -40,9 +40,9 @@ public class BerlinClockBuilder {
 	public BerlinClock build() {
 		BerlinClock berlinClock = new BerlinClock();
 		berlinClock.setHourBlocks(hourBlocks);
-		berlinClock.setLastHours(lastHours);
+		berlinClock.setRemainingHours(remainingHours);
 		berlinClock.setMinutesBlocks(minutesBlocks);
-		berlinClock.setLastMinutes(lastMinutes);
+		berlinClock.setRemainingMinutes(remainingMinutes);
 		berlinClock.setIsSecondActivated(isSecondActivated);
 
 		return berlinClock;

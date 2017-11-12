@@ -45,18 +45,102 @@ public class BerlinClockControllerTest {
 	}
 
 	@Test
-	public void makeAValidCallToBerlinClockApi() throws Exception {
+	public void makeAValidCallToFullClock() throws Exception {
 		BerlinClock berlinClock = BerlinClockBuilder.aBerlinClock()
-													.withMinuteBlocks(11)
+													.hasSecondActive(true)
+													.withHourBlocks(0)
+													.withRemainingHours(0)
+													.withMinuteBlocks(0)
+													.withRemainingMinutes(0)
 													.build();
 
 		Mockito	.doReturn(berlinClock)
 				.when(berlinClockService)
 				.convertTimeToBerlinClock(any());
 
-		mockMvc	.perform(get("/berlinclock/minutes-blocks/aTime"))
+		mockMvc	.perform(get("/berlin-clock/full-clock/aTime"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$",
-									is("YYRYYRYYRYY")));
+									is("YOOOOOOOOOOOOOOOOOOOOOOO")));
+	}
+
+	@Test
+	public void makeAValidCallToHourBlocks() throws Exception {
+		BerlinClock berlinClock = BerlinClockBuilder.aBerlinClock()
+													.withHourBlocks(3)
+													.build();
+
+		Mockito	.doReturn(berlinClock)
+				.when(berlinClockService)
+				.convertTimeToBerlinClock(any());
+
+		mockMvc	.perform(get("/berlin-clock/hour-blocks/aTime"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$",
+									is("RRRO")));
+	}
+
+	@Test
+	public void makeAValidCallToRemainingHours() throws Exception {
+		BerlinClock berlinClock = BerlinClockBuilder.aBerlinClock()
+													.withRemainingHours(3)
+													.build();
+
+		Mockito	.doReturn(berlinClock)
+				.when(berlinClockService)
+				.convertTimeToBerlinClock(any());
+
+		mockMvc	.perform(get("/berlin-clock/remaining-hours/aTime"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$",
+									is("RRRO")));
+	}
+
+	@Test
+	public void makeAValidCallToMinuteBlocks() throws Exception {
+		BerlinClock berlinClock = BerlinClockBuilder.aBerlinClock()
+													.withMinuteBlocks(10)
+													.build();
+
+		Mockito	.doReturn(berlinClock)
+				.when(berlinClockService)
+				.convertTimeToBerlinClock(any());
+
+		mockMvc	.perform(get("/berlin-clock/minute-blocks/aTime"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$",
+									is("YYRYYRYYRYO")));
+	}
+
+	@Test
+	public void makeAValidCallToRemainingMinutes() throws Exception {
+		BerlinClock berlinClock = BerlinClockBuilder.aBerlinClock()
+													.withRemainingMinutes(3)
+													.build();
+
+		Mockito	.doReturn(berlinClock)
+				.when(berlinClockService)
+				.convertTimeToBerlinClock(any());
+
+		mockMvc	.perform(get("/berlin-clock/remaining-minutes/aTime"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$",
+									is("YYYO")));
+	}
+
+	@Test
+	public void makeAValidCallToSeconds() throws Exception {
+		BerlinClock berlinClock = BerlinClockBuilder.aBerlinClock()
+													.hasSecondActive(true)
+													.build();
+
+		Mockito	.doReturn(berlinClock)
+				.when(berlinClockService)
+				.convertTimeToBerlinClock(any());
+
+		mockMvc	.perform(get("/berlin-clock/seconds/aTime"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$",
+									is("Y")));
 	}
 }
